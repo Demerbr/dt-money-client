@@ -35,7 +35,25 @@ table{
             color: var(--red);
 
         }
+        
+        
     }
+
+    .delete-transaction{
+           height: 0;
+           width: 0;
+           border: none;
+
+           .img-delete-transaction{
+            transition: 0.2s;
+           }
+
+            .img-delete-transaction:hover{
+              transform: scale(1.2)
+            }
+            
+        }
+        
 }
 
 

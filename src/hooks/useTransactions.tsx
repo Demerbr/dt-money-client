@@ -23,6 +23,7 @@ interface TransactionsProviderProps {
 interface TransactionContextData{
     transactions: Transaction[]
     createTransaction: (transaction: TransactionInput) => Promise<void>
+    deleteTransaction: (id: string) => Promise<void>
 }
 
 
@@ -39,6 +40,11 @@ export function TransactionProvider({children}: TransactionsProviderProps){
         .then(response => setTransactions(response.data.transactions))
     }, [])
 
+    useEffect(() =>{
+        api.get('/transaction') 
+        .then(response => setTransactions(response.data.transactions))
+    }, [transactions])
+
 
     async function createTransaction(transactionInput: TransactionInput){
        
@@ -53,10 +59,20 @@ export function TransactionProvider({children}: TransactionsProviderProps){
            transaction
        ])
     }
+
+    async function deleteTransaction(id: string){
+        
+
+         await api.delete(`/transaction/${id}`)
+
+         
+    }
+
+    
     
 
     return(
-        <TransactionsContext.Provider value={{transactions, createTransaction}}>
+        <TransactionsContext.Provider value={{transactions, createTransaction, deleteTransaction}}>
 
             {children}
 
